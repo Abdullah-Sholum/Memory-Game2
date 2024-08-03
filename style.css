@@ -1,7 +1,17 @@
-.grid {
+h1 {
+    /* border: 1px solid; */
+    font-size: 45px;
     display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.grid {
+    margin-top: 4em;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    width: 320px;
+    width: 100%;
 }
 .card {
     width: 80px;
@@ -15,6 +25,24 @@
     cursor: pointer;
 }
 .matched {
+    cursor: pointer;
     background-color: #8f8;
     pointer-events: none;
+}
+
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .grid {
+        margin-top: 1em;
+    }
+
+    .card {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
 }
