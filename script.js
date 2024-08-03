@@ -1,3 +1,4 @@
+// add event listener DOMContentLoaded'
 document.addEventListener('DOMContentLoaded', () => {
     const cardArray = [
         { name: 'A', img: 'A' },
