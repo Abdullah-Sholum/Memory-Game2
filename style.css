@@ -30,6 +30,8 @@ h1 {
     pointer-events: none;
 }
 
+
+/* @media screen untuk merubah beberapa properties seusai ukuran media / layar pengguna */
 @media screen and (max-width: 600px) {
     h1 {
         font-size: 35px;
