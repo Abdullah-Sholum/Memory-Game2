@@ -1,5 +1,6 @@
-// add event listener DOMContentLoaded'
+// add event listener DOMContentLoaded untuk dokumen agar script dijalankan sesaat setelah dokumen di load'
 document.addEventListener('DOMContentLoaded', () => {
+    //inisiasi array
     const cardArray = [
         { name: 'A', img: 'A' },
         { name: 'A', img: 'A' },
@@ -66,54 +67,60 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     
 
-    cardArray.sort(() => 0.5 - Math.random());
+    cardArray.sort(() => 0.5 - Math.random());      //fungsi untuk mengacak array
 
-    const grid = document.querySelector('#game-grid');
-    let cardsChosen = [];
+    const grid = document.querySelector('#game-grid');          //inisiasi dokumen dengan mentargetkan id
+    //buat array kosong
+    let cardsChosen = [];      
     let cardsChosenId = [];
     let cardsMatched = [];
 
-    function createBoard() {
-        cardArray.forEach((card, index) => {
-            const cardElement = document.createElement('div');
-            cardElement.setAttribute('data-id', index);
-            cardElement.setAttribute('class', 'card');
-            cardElement.addEventListener('click', flipCard);
-            grid.appendChild(cardElement);
-        });
+    // buat fungsi
+    function createBoard() {                    
+        cardArray.forEach((card, index) => {            //lakukan perulangan sejumlah cardArray, masukkan masing2 value ke card, kemudian simpan index elemen ke index
+            const cardElement = document.createElement('div');      //buat div
+            cardElement.setAttribute('data-id', index);             //set atribut data-id cardElemen nilai index
+            cardElement.setAttribute('class', 'card');              //set atribut class dengan card
+            cardElement.addEventListener('click', flipCard);        //add event click dengan memanggil fungsi
+            grid.appendChild(cardElement);          //jadikan cardElemen child dari grid
+        }); 
     }
 
+    //buat fungsi
     function flipCard() {
-        let cardId = this.getAttribute('data-id');
-        cardsChosen.push(cardArray[cardId].name);
-        cardsChosenId.push(cardId);
-        this.textContent = cardArray[cardId].img;
+        let cardId = this.getAttribute('data-id');          //inisiasi dengan mengambil nilai dari atribut
+        cardsChosen.push(cardArray[cardId].name);           //masukkan cardArray dengan index ke cardChoosen.name merupakan properti array
+        cardsChosenId.push(cardId);                         //masukkan cardId ke cardsChosenId
+        this.textContent = cardArray[cardId].img;           //masukkan properti img dari cardArray dengan index cardId ke textContent
 
-        if (cardsChosen.length === 2) {
-            setTimeout(checkForMatch, 500);
+        if (cardsChosen.length === 2) {                     //jika panjang 2
+            setTimeout(checkForMatch, 500);                 //set timeout, setengah detik
         }
     }
 
-    function checkForMatch() {
-        const cards = document.querySelectorAll('.card');
-        const [optionOneId, optionTwoId] = cardsChosenId;
 
-        if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
-            cards[optionOneId].classList.add('matched');
-            cards[optionTwoId].classList.add('matched');
-            cardsMatched.push(cardsChosen);
-        } else {
-            cards[optionOneId].textContent = '';
-            cards[optionTwoId].textContent = '';
+    //buat fungsi
+    function checkForMatch() {
+        const cards = document.querySelectorAll('.card');       //pilih semua selector class card
+        const [optionOneId, optionTwoId] = cardsChosenId;       //destruksi array cardsChosenId menjadi 2 kemdudian masukkan ke [optionOneId, optionTwoId
+
+        if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {     //jika cardsChosen index pertama sama dengan cardsChosen index ke 2 dan optionOneId tidak sama dengan optionTwoId
+            cards[optionOneId].classList.add('matched');            //card id tambahkan class matched
+            cards[optionTwoId].classList.add('matched');            //card id tambahkan class matched
+            cardsMatched.push(cardsChosen);                         //push cardChosen ke cardsMatched
+        } else {                                                //sebaliknya
+            cards[optionOneId].textContent = '';                    //kosongkan cards
+            cards[optionTwoId].textContent = '';                    //kosongkan cards
         }
 
+        // buat array kosong
         cardsChosen = [];
         cardsChosenId = [];
 
-        if (cardsMatched.length === cardArray.length / 2) {
-            alert('Selamat! Anda telah menemukan semua pasangan kartu!');
+        if (cardsMatched.length === cardArray.length / 2) {         //jika panjang cardsMatched sama dengan panjang cardArray dibagi 2
+            alert('Selamat! Anda telah menemukan semua pasangan kartu!');   //omedetto
         }
     }
 
-    createBoard();
+    createBoard();                  //summon fungsi
 });
